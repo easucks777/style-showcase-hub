@@ -1,14 +1,19 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { styleThemes } from "@/data/styles";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Copy } from "lucide-react";
+import { ArrowLeft, Copy, Moon, Sun } from "lucide-react";
 import { toast } from "sonner";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const StylePreview = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const theme = styleThemes.find((t) => t.id === id);
+  const [isDark, setIsDark] = useState(false);
+
+  // Use dark colors if available and isDark is true
+  const currentColors = (isDark && theme?.darkColors) ? theme.darkColors : theme?.colors;
+  const currentGradient = (isDark && theme?.darkGradient) ? theme.darkGradient : theme?.gradient;
 
   useEffect(() => {
     if (!theme) return;
@@ -30,7 +35,7 @@ const StylePreview = () => {
     };
   }, [theme]);
 
-  if (!theme) {
+  if (!theme || !currentColors) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -52,11 +57,11 @@ const StylePreview = () => {
   const cssCode = `
 /* ${theme.name} Style - CSS Variables */
 :root {
-  --primary: ${theme.colors.primary};
-  --secondary: ${theme.colors.secondary};
-  --accent: ${theme.colors.accent};
-  --background: ${theme.colors.background};
-  --text: ${theme.colors.text};
+  --primary: ${currentColors.primary};
+  --secondary: ${currentColors.secondary};
+  --accent: ${currentColors.accent};
+  --background: ${currentColors.background};
+  --text: ${currentColors.text};
   --font-heading: ${theme.fonts.heading.family};
   --font-body: ${theme.fonts.body.family};
 }
@@ -76,7 +81,7 @@ body, p {
 /* Buttons */
 .btn-primary {
   background-color: var(--primary);
-  color: ${['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff'};
+  color: ${['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff'};
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -117,26 +122,38 @@ body, p {
   `.trim();
 
   return (
-    <div style={{ backgroundColor: theme.colors.background, minHeight: "100vh" }}>
+    <div style={{ backgroundColor: currentColors.background, minHeight: "100vh" }}>
       {/* Navigation */}
-      <nav style={{ borderBottom: `1px solid ${theme.colors.secondary}`, padding: "1rem" }}>
+      <nav style={{ borderBottom: `1px solid ${currentColors.secondary}`, padding: "1rem" }}>
         <div className="container mx-auto flex items-center justify-between">
           <Button
             variant="ghost"
             onClick={() => navigate("/")}
-            style={{ color: theme.colors.text }}
+            style={{ color: currentColors.text }}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Назад к каталогу
           </Button>
-          <h2 style={{ 
-            fontFamily: theme.fonts.heading.family, 
-            color: theme.colors.text,
-            fontSize: "1.5rem",
-            fontWeight: "bold"
-          }}>
-            {theme.name}
-          </h2>
+          <div className="flex items-center gap-4">
+            {(theme.darkColors || theme.darkGradient) && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsDark(!isDark)}
+                style={{ color: currentColors.text }}
+              >
+                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+            )}
+            <h2 style={{ 
+              fontFamily: theme.fonts.heading.family, 
+              color: currentColors.text,
+              fontSize: "1.5rem",
+              fontWeight: "bold"
+            }}>
+              {theme.name}
+            </h2>
+          </div>
         </div>
       </nav>
 
@@ -147,7 +164,7 @@ body, p {
           <h1 
             style={{ 
               fontFamily: theme.fonts.heading.family, 
-              color: theme.colors.text,
+              color: currentColors.text,
               fontSize: "3.5rem",
               fontWeight: "bold",
               lineHeight: "1.2"
@@ -158,7 +175,7 @@ body, p {
           <p 
             style={{ 
               fontFamily: theme.fonts.body.family, 
-              color: theme.colors.secondary,
+              color: currentColors.secondary,
               fontSize: "1.25rem",
               maxWidth: "42rem",
               margin: "0 auto"
@@ -169,8 +186,8 @@ body, p {
           <div className="flex gap-4 justify-center">
             <button
               style={{
-                backgroundColor: theme.colors.primary,
-                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff',
+                backgroundColor: currentColors.primary,
+                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff',
                 padding: "0.75rem 2rem",
                 borderRadius: "0.5rem",
                 fontFamily: theme.fonts.body.family,
@@ -184,8 +201,8 @@ body, p {
             </button>
             <button
               style={{
-                backgroundColor: theme.colors.secondary,
-                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#ffffff' : theme.colors.text,
+                backgroundColor: currentColors.secondary,
+                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#ffffff' : currentColors.text,
                 padding: "0.75rem 2rem",
                 borderRadius: "0.5rem",
                 fontFamily: theme.fonts.body.family,
@@ -206,16 +223,16 @@ body, p {
             <div
               key={i}
               style={{
-                backgroundColor: theme.colors.secondary,
+                backgroundColor: currentColors.secondary,
                 padding: "1.5rem",
                 borderRadius: "0.75rem",
-                border: `2px solid ${theme.colors.accent}`
+                border: `2px solid ${currentColors.accent}`
               }}
             >
               <h3 
                 style={{ 
                   fontFamily: theme.fonts.heading.family, 
-                  color: theme.colors.text,
+                  color: currentColors.text,
                   fontSize: "1.5rem",
                   fontWeight: "bold",
                   marginBottom: "0.75rem"
@@ -226,7 +243,7 @@ body, p {
               <p 
                 style={{ 
                   fontFamily: theme.fonts.body.family, 
-                  color: theme.colors.text,
+                  color: currentColors.text,
                   opacity: 0.8
                 }}
               >
@@ -241,7 +258,7 @@ body, p {
           <h2 
             style={{ 
               fontFamily: theme.fonts.heading.family, 
-              color: theme.colors.text,
+              color: currentColors.text,
               fontSize: "2rem",
               fontWeight: "bold",
               textAlign: "center"
@@ -252,7 +269,7 @@ body, p {
 
           {/* CSS Code */}
           <div style={{ 
-            backgroundColor: theme.colors.secondary, 
+            backgroundColor: currentColors.secondary, 
             padding: "1.5rem",
             borderRadius: "0.75rem",
             position: "relative"
@@ -260,7 +277,7 @@ body, p {
             <div className="flex items-center justify-between mb-4">
               <h3 style={{ 
                 fontFamily: theme.fonts.heading.family, 
-                color: theme.colors.text,
+                color: currentColors.text,
                 fontSize: "1.25rem",
                 fontWeight: "600"
               }}>
@@ -270,8 +287,8 @@ body, p {
                 size="sm"
                 onClick={() => copyCode(cssCode, "CSS код")}
                 style={{
-                  backgroundColor: theme.colors.accent,
-                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff'
+                  backgroundColor: currentColors.accent,
+                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff'
                 }}
               >
                 <Copy className="h-4 w-4 mr-2" />
@@ -280,7 +297,7 @@ body, p {
             </div>
             <pre style={{
               fontFamily: "monospace",
-              color: theme.colors.text,
+              color: currentColors.text,
               opacity: 0.9,
               fontSize: "0.875rem",
               overflow: "auto",
@@ -292,7 +309,7 @@ body, p {
 
           {/* HTML Code */}
           <div style={{ 
-            backgroundColor: theme.colors.secondary, 
+            backgroundColor: currentColors.secondary, 
             padding: "1.5rem",
             borderRadius: "0.75rem",
             position: "relative"
@@ -300,7 +317,7 @@ body, p {
             <div className="flex items-center justify-between mb-4">
               <h3 style={{ 
                 fontFamily: theme.fonts.heading.family, 
-                color: theme.colors.text,
+                color: currentColors.text,
                 fontSize: "1.25rem",
                 fontWeight: "600"
               }}>
@@ -310,8 +327,8 @@ body, p {
                 size="sm"
                 onClick={() => copyCode(htmlCode, "HTML код")}
                 style={{
-                  backgroundColor: theme.colors.accent,
-                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff'
+                  backgroundColor: currentColors.accent,
+                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff'
                 }}
               >
                 <Copy className="h-4 w-4 mr-2" />
@@ -320,7 +337,7 @@ body, p {
             </div>
             <pre style={{
               fontFamily: "monospace",
-              color: theme.colors.text,
+              color: currentColors.text,
               opacity: 0.9,
               fontSize: "0.875rem",
               overflow: "auto",

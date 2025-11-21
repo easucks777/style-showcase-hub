@@ -9,6 +9,13 @@ export interface StyleTheme {
     background: string;
     text: string;
   };
+  darkColors?: {
+    primary: string;
+    secondary: string;
+    accent: string;
+    background: string;
+    text: string;
+  };
   fonts: {
     heading: {
       name: string;
@@ -22,6 +29,7 @@ export interface StyleTheme {
     };
   };
   gradient?: string;
+  darkGradient?: string;
 }
 
 export const styleThemes: StyleTheme[] = [
@@ -86,6 +94,13 @@ export const styleThemes: StyleTheme[] = [
       background: '#ffffff',
       text: '#18181b',
     },
+    darkColors: {
+      primary: '#ec4899',
+      secondary: '#f59e0b',
+      accent: '#a78bfa',
+      background: '#18181b',
+      text: '#fafafa',
+    },
     fonts: {
       heading: {
         name: 'Fredoka',
@@ -99,6 +114,7 @@ export const styleThemes: StyleTheme[] = [
       },
     },
     gradient: 'linear-gradient(135deg, #ec4899 0%, #f59e0b 50%, #8b5cf6 100%)',
+    darkGradient: 'linear-gradient(135deg, #ec4899 0%, #f59e0b 50%, #a78bfa 100%)',
   },
   {
     id: 'minimalist',
@@ -135,6 +151,13 @@ export const styleThemes: StyleTheme[] = [
       background: '#faf8f3',
       text: '#3e2723',
     },
+    darkColors: {
+      primary: '#d2691e',
+      secondary: '#4a3728',
+      accent: '#daa520',
+      background: '#1a1410',
+      text: '#f5f5dc',
+    },
     fonts: {
       heading: {
         name: 'Playfair Display',
@@ -148,6 +171,7 @@ export const styleThemes: StyleTheme[] = [
       },
     },
     gradient: 'linear-gradient(135deg, #8b4513 0%, #daa520 100%)',
+    darkGradient: 'linear-gradient(135deg, #d2691e 0%, #daa520 100%)',
   },
   {
     id: 'tech',
