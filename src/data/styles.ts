@@ -55,11 +55,11 @@ export const styleThemes: StyleTheme[] = [
     name: 'Corporate',
     description: 'Профессиональный стиль для бизнес-проектов',
     colors: {
-      primary: '#1e3a8a',
-      secondary: '#3b82f6',
+      primary: '#3b82f6',
+      secondary: '#1e293b',
       accent: '#60a5fa',
-      background: '#f8fafc',
-      text: '#1e293b',
+      background: '#0f172a',
+      text: '#f1f5f9',
     },
     fonts: {
       heading: {
@@ -103,13 +103,13 @@ export const styleThemes: StyleTheme[] = [
   {
     id: 'minimalist',
     name: 'Minimalist',
-    description: 'Минималистичный черно-белый стиль',
+    description: 'Минималистичный темный стиль',
     colors: {
-      primary: '#000000',
-      secondary: '#404040',
-      accent: '#737373',
-      background: '#ffffff',
-      text: '#171717',
+      primary: '#ffffff',
+      secondary: '#262626',
+      accent: '#525252',
+      background: '#0a0a0a',
+      text: '#fafafa',
     },
     fonts: {
       heading: {
@@ -148,5 +148,30 @@ export const styleThemes: StyleTheme[] = [
       },
     },
     gradient: 'linear-gradient(135deg, #8b4513 0%, #daa520 100%)',
+  },
+  {
+    id: 'tech',
+    name: 'Tech',
+    description: 'Современный технологичный стиль с футуристичными акцентами',
+    colors: {
+      primary: '#3b82f6',
+      secondary: '#1e1b4b',
+      accent: '#06b6d4',
+      background: '#0c0a1f',
+      text: '#e0e7ff',
+    },
+    fonts: {
+      heading: {
+        name: 'Space Grotesk',
+        family: "'Space Grotesk', sans-serif",
+        import: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap",
+      },
+      body: {
+        name: 'JetBrains Mono',
+        family: "'JetBrains Mono', monospace",
+        import: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap",
+      },
+    },
+    gradient: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%)',
   },
 ];
