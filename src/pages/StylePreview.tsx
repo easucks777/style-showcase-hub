@@ -76,7 +76,7 @@ body, p {
 /* Buttons */
 .btn-primary {
   background-color: var(--primary);
-  color: ${theme.colors.text === '#171717' || theme.colors.text === '#3e2723' ? '#ffffff' : 'var(--text)'};
+  color: ${['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff'};
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -170,7 +170,7 @@ body, p {
             <button
               style={{
                 backgroundColor: theme.colors.primary,
-                color: theme.colors.text === '#171717' || theme.colors.text === '#3e2723' ? '#ffffff' : theme.colors.background,
+                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff',
                 padding: "0.75rem 2rem",
                 borderRadius: "0.5rem",
                 fontFamily: theme.fonts.body.family,
@@ -185,7 +185,7 @@ body, p {
             <button
               style={{
                 backgroundColor: theme.colors.secondary,
-                color: theme.colors.text,
+                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#ffffff' : theme.colors.text,
                 padding: "0.75rem 2rem",
                 borderRadius: "0.5rem",
                 fontFamily: theme.fonts.body.family,
@@ -271,7 +271,7 @@ body, p {
                 onClick={() => copyCode(cssCode, "CSS код")}
                 style={{
                   backgroundColor: theme.colors.accent,
-                  color: theme.colors.text === '#171717' || theme.colors.text === '#3e2723' ? '#ffffff' : theme.colors.background
+                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff'
                 }}
               >
                 <Copy className="h-4 w-4 mr-2" />
@@ -311,7 +311,7 @@ body, p {
                 onClick={() => copyCode(htmlCode, "HTML код")}
                 style={{
                   backgroundColor: theme.colors.accent,
-                  color: theme.colors.text === '#171717' || theme.colors.text === '#3e2723' ? '#ffffff' : theme.colors.background
+                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff'].includes(theme.colors.text) ? '#000000' : '#ffffff'
                 }}
               >
                 <Copy className="h-4 w-4 mr-2" />
