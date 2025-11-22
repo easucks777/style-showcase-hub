@@ -136,25 +136,40 @@ const StylePreview = () => {
 .vintage-glow {
   animation: vintage-glow 2s ease-in-out infinite;
 }`,
-      tech: `/* Tech Scan Animation */
+      tech: `/* Tech Scan & Pulse Animations */
 @keyframes tech-scan {
   0% {
-    background-position: 0% 0%;
+    background-position: -200% center;
   }
   100% {
-    background-position: 100% 100%;
+    background-position: 200% center;
+  }
+}
+
+@keyframes tech-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.2);
+    transform: scale(1.02);
   }
 }
 
 .tech-scan {
   background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(59, 130, 246, 0.3) 50%,
-    transparent 70%
+    90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.4) 50%,
+    transparent 100%
   );
-  background-size: 200% 200%;
+  background-size: 200% 100%;
   animation: tech-scan 3s linear infinite;
+}
+
+.tech-pulse {
+  animation: tech-pulse 3s ease-in-out infinite;
 }`
     };
     return animations[theme.id as keyof typeof animations] || '';
@@ -192,7 +207,7 @@ const StylePreview = () => {
                 <p style={{ fontFamily: theme.fonts.body.family, color: accentColor, fontSize: '1.5rem', marginBottom: '3rem', textTransform: 'uppercase' }}>
                   Присоединяйся к миллионам игроков
                 </p>
-                <button style={{
+                <button className="gaming-button-hover" style={{
                   backgroundColor: accentColor,
                   color: '#000',
                   padding: '1rem 3rem',
@@ -237,7 +252,7 @@ const StylePreview = () => {
                   Мы помогаем компаниям достигать своих целей с помощью передовых технологий и профессионального подхода.
                 </p>
                 <div style={{ display: 'flex', gap: '1rem' }} className="corporate-slide">
-                  <button style={{
+                  <button className="corporate-button-hover" style={{
                     backgroundColor: primaryColor,
                     color: isDark ? textColor : '#fff',
                     padding: '1rem 2rem',
@@ -250,7 +265,7 @@ const StylePreview = () => {
                   }}>
                     Узнать больше
                   </button>
-                  <button style={{
+                  <button className="corporate-button-hover" style={{
                     backgroundColor: 'transparent',
                     color: textColor,
                     padding: '1rem 2rem',
@@ -280,13 +295,13 @@ const StylePreview = () => {
               
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '4rem' }}>
                 {[primaryColor, secondaryColor, accentColor].map((color, i) => (
-                  <div key={i} style={{
+                  <div key={i} className="creative-button-hover" style={{
                     backgroundColor: color,
                     padding: '3rem 2rem',
                     borderRadius: '1.5rem',
                     textAlign: 'center',
                     transform: 'rotate(-2deg)',
-                    transition: 'transform 0.3s'
+                    cursor: 'pointer'
                   }}>
                     <h3 style={{ fontFamily: theme.fonts.heading.family, color: isDark ? textColor : '#fff', fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
                       Проект {i + 1}
@@ -317,10 +332,11 @@ const StylePreview = () => {
 
               <div style={{ display: 'flex', gap: '1px', marginTop: '4rem' }}>
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} style={{
+                  <div key={i} className="minimalist-button-hover" style={{
                     flex: 1,
                     height: `${100 + i * 50}px`,
-                    backgroundColor: i % 2 === 0 ? primaryColor : accentColor
+                    backgroundColor: i % 2 === 0 ? primaryColor : accentColor,
+                    cursor: 'pointer'
                   }}></div>
                 ))}
               </div>
@@ -343,11 +359,12 @@ const StylePreview = () => {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '3rem' }}>
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} style={{
+                  <div key={i} className="vintage-button-hover" style={{
                     border: `8px solid ${secondaryColor}`,
                     padding: '2rem',
                     backgroundColor: isDark ? '#000' : '#fff',
-                    boxShadow: '10px 10px 0 rgba(0,0,0,0.1)'
+                    boxShadow: '10px 10px 0 rgba(0,0,0,0.1)',
+                    cursor: 'pointer'
                   }}>
                     <h3 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>
                       Коллекция {i}
@@ -366,6 +383,7 @@ const StylePreview = () => {
         return (
           <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.05 }} className="tech-scan"></div>
+            <div className="tech-pulse" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none' }}></div>
             <div className="container mx-auto" style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '4rem' }}>
                 <div style={{ width: '4px', height: '60px', backgroundColor: primaryColor }}></div>
@@ -376,12 +394,13 @@ const StylePreview = () => {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginTop: '4rem' }}>
                 {['AI', 'CLOUD', 'SECURITY'].map((item) => (
-                  <div key={item} style={{
+                  <div key={item} className="tech-button-hover" style={{
                     backgroundColor: secondaryColor,
                     padding: '3rem 2rem',
                     border: `1px solid ${accentColor}`,
                     position: 'relative',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    cursor: 'pointer'
                   }}>
                     <div style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '2px', backgroundColor: accentColor }} className="tech-scan"></div>
                     <h3 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
