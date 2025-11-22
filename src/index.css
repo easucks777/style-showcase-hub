@@ -56,3 +56,118 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Gaming Animations */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    clip-path: inset(0 0 0 0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    clip-path: inset(10px 0 30px 0);
+  }
+  40% {
+    transform: translate(2px, -2px);
+    clip-path: inset(30px 0 10px 0);
+  }
+  60% {
+    transform: translate(-2px, 2px);
+    clip-path: inset(20px 0 20px 0);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    clip-path: inset(40px 0 5px 0);
+  }
+}
+
+.gaming-glitch {
+  animation: glitch 0.3s infinite;
+  text-shadow: 2px 2px #00ff88, -2px -2px #00d4ff;
+}
+
+/* Corporate Animations */
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.corporate-slide {
+  animation: slide-up-fade 0.8s ease-out forwards;
+}
+
+/* Creative Animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.creative-gradient {
+  background: linear-gradient(270deg, #ec4899, #f59e0b, #8b5cf6);
+  background-size: 600% 600%;
+  animation: gradient-shift 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Minimalist Animations */
+@keyframes minimal-fade {
+  from {
+    opacity: 0;
+    letter-spacing: 10px;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: normal;
+  }
+}
+
+.minimalist-fade {
+  animation: minimal-fade 1.2s ease-out forwards;
+}
+
+/* Vintage Animations */
+@keyframes vintage-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(218, 165, 32, 0.8), 0 0 30px rgba(210, 105, 30, 0.6);
+  }
+}
+
+.vintage-glow {
+  animation: vintage-glow 2s ease-in-out infinite;
+}
+
+/* Tech Animations */
+@keyframes tech-scan {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.tech-scan {
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(59, 130, 246, 0.3) 50%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  animation: tech-scan 3s linear infinite;
+}

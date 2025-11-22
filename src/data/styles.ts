@@ -38,10 +38,17 @@ export const styleThemes: StyleTheme[] = [
     name: 'Gaming',
     description: 'Темный стиль с неоновыми акцентами для игровых проектов',
     colors: {
-      primary: '#000000',
+      primary: '#00ff88',
       secondary: '#1a1a1a',
-      accent: '#00ff88',
+      accent: '#00d4ff',
       background: '#0a0a0a',
+      text: '#ffffff',
+    },
+    darkColors: {
+      primary: '#00ff88',
+      secondary: '#0d0d0d',
+      accent: '#ff00ff',
+      background: '#000000',
       text: '#ffffff',
     },
     fonts: {
@@ -57,12 +64,20 @@ export const styleThemes: StyleTheme[] = [
       },
     },
     gradient: 'linear-gradient(135deg, #00ff88 0%, #00d4ff 100%)',
+    darkGradient: 'linear-gradient(135deg, #00ff88 0%, #ff00ff 100%)',
   },
   {
     id: 'corporate',
     name: 'Corporate',
     description: 'Профессиональный стиль для бизнес-проектов',
     colors: {
+      primary: '#3b82f6',
+      secondary: '#f8fafc',
+      accent: '#60a5fa',
+      background: '#ffffff',
+      text: '#0f172a',
+    },
+    darkColors: {
       primary: '#3b82f6',
       secondary: '#1e293b',
       accent: '#60a5fa',
@@ -81,7 +96,8 @@ export const styleThemes: StyleTheme[] = [
         import: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap",
       },
     },
-    gradient: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
+    gradient: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
+    darkGradient: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
   },
   {
     id: 'creative',
@@ -119,8 +135,15 @@ export const styleThemes: StyleTheme[] = [
   {
     id: 'minimalist',
     name: 'Minimalist',
-    description: 'Минималистичный темный стиль',
+    description: 'Минималистичный стиль с чистыми линиями',
     colors: {
+      primary: '#18181b',
+      secondary: '#f4f4f5',
+      accent: '#71717a',
+      background: '#ffffff',
+      text: '#09090b',
+    },
+    darkColors: {
       primary: '#ffffff',
       secondary: '#262626',
       accent: '#525252',
@@ -139,6 +162,8 @@ export const styleThemes: StyleTheme[] = [
         import: "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",
       },
     },
+    gradient: 'linear-gradient(135deg, #18181b 0%, #71717a 100%)',
+    darkGradient: 'linear-gradient(135deg, #ffffff 0%, #525252 100%)',
   },
   {
     id: 'vintage',
@@ -179,6 +204,13 @@ export const styleThemes: StyleTheme[] = [
     description: 'Современный технологичный стиль с футуристичными акцентами',
     colors: {
       primary: '#3b82f6',
+      secondary: '#e0e7ff',
+      accent: '#06b6d4',
+      background: '#f8fafc',
+      text: '#0c0a1f',
+    },
+    darkColors: {
+      primary: '#3b82f6',
       secondary: '#1e1b4b',
       accent: '#06b6d4',
       background: '#0c0a1f',
@@ -197,5 +229,6 @@ export const styleThemes: StyleTheme[] = [
       },
     },
     gradient: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%)',
+    darkGradient: 'linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%)',
   },
 ];
