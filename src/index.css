@@ -61,29 +61,29 @@ All colors MUST be HSL.
 @keyframes glitch {
   0%, 100% {
     transform: translate(0);
-    clip-path: inset(0 0 0 0);
+    opacity: 1;
   }
   20% {
-    transform: translate(-2px, 2px);
-    clip-path: inset(10px 0 30px 0);
+    transform: translate(-1px, 1px);
+    opacity: 0.95;
   }
   40% {
-    transform: translate(2px, -2px);
-    clip-path: inset(30px 0 10px 0);
+    transform: translate(1px, -1px);
+    opacity: 0.95;
   }
   60% {
-    transform: translate(-2px, 2px);
-    clip-path: inset(20px 0 20px 0);
+    transform: translate(-0.5px, 0.5px);
+    opacity: 0.98;
   }
   80% {
-    transform: translate(2px, -2px);
-    clip-path: inset(40px 0 5px 0);
+    transform: translate(0.5px, -0.5px);
+    opacity: 0.98;
   }
 }
 
 .gaming-glitch {
-  animation: glitch 0.3s infinite;
-  text-shadow: 2px 2px #00ff88, -2px -2px #00d4ff;
+  animation: glitch 2s ease-in-out infinite;
+  text-shadow: 1px 1px rgba(0, 255, 136, 0.4), -1px -1px rgba(0, 212, 255, 0.4);
 }
 
 /* Corporate Animations */
@@ -154,20 +154,88 @@ All colors MUST be HSL.
 /* Tech Animations */
 @keyframes tech-scan {
   0% {
-    background-position: 0% 0%;
+    background-position: -200% center;
   }
   100% {
-    background-position: 100% 100%;
+    background-position: 200% center;
+  }
+}
+
+@keyframes tech-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.2);
+    transform: scale(1.02);
   }
 }
 
 .tech-scan {
   background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(59, 130, 246, 0.3) 50%,
-    transparent 70%
+    90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.4) 50%,
+    transparent 100%
   );
-  background-size: 200% 200%;
+  background-size: 200% 100%;
   animation: tech-scan 3s linear infinite;
+}
+
+.tech-pulse {
+  animation: tech-pulse 3s ease-in-out infinite;
+}
+
+/* Button Hover Effects */
+.gaming-button-hover {
+  transition: all 0.3s ease;
+}
+
+.gaming-button-hover:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px currentColor, 0 0 50px currentColor;
+}
+
+.corporate-button-hover {
+  transition: all 0.3s ease;
+}
+
+.corporate-button-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.creative-button-hover {
+  transition: all 0.3s ease;
+}
+
+.creative-button-hover:hover {
+  transform: rotate(-2deg) scale(1.05);
+}
+
+.minimalist-button-hover {
+  transition: all 0.3s ease;
+}
+
+.minimalist-button-hover:hover {
+  letter-spacing: 4px;
+  opacity: 0.8;
+}
+
+.vintage-button-hover {
+  transition: all 0.3s ease;
+}
+
+.vintage-button-hover:hover {
+  box-shadow: 0 0 15px rgba(218, 165, 32, 0.6), 0 0 30px rgba(218, 165, 32, 0.4);
+}
+
+.tech-button-hover {
+  transition: all 0.3s ease;
+}
+
+.tech-button-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3);
 }
