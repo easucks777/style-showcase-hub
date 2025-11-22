@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { styleThemes } from "@/data/styles";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Copy, Moon, Sun } from "lucide-react";
+import { ArrowLeft, Copy, Moon, Sun, Code } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 
@@ -10,15 +10,14 @@ const StylePreview = () => {
   const navigate = useNavigate();
   const theme = styleThemes.find((t) => t.id === id);
   const [isDark, setIsDark] = useState(false);
+  const [showCode, setShowCode] = useState(false);
 
-  // Use dark colors if available and isDark is true
   const currentColors = (isDark && theme?.darkColors) ? theme.darkColors : theme?.colors;
   const currentGradient = (isDark && theme?.darkGradient) ? theme.darkGradient : theme?.gradient;
 
   useEffect(() => {
     if (!theme) return;
 
-    // Load fonts dynamically
     const headingLink = document.createElement("link");
     headingLink.rel = "stylesheet";
     headingLink.href = theme.fonts.heading.import;
@@ -54,8 +53,356 @@ const StylePreview = () => {
     toast.success(`${label} скопирован!`);
   };
 
-  const cssCode = `
-/* ${theme.name} Style - CSS Variables */
+  const getAnimationCode = () => {
+    const animations = {
+      gaming: `/* Gaming Glitch Animation */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    clip-path: inset(0 0 0 0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    clip-path: inset(10px 0 30px 0);
+  }
+  40% {
+    transform: translate(2px, -2px);
+    clip-path: inset(30px 0 10px 0);
+  }
+}
+
+.gaming-glitch {
+  animation: glitch 0.3s infinite;
+  text-shadow: 2px 2px #00ff88, -2px -2px #00d4ff;
+}`,
+      corporate: `/* Corporate Slide Animation */
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.corporate-slide {
+  animation: slide-up-fade 0.8s ease-out forwards;
+}`,
+      creative: `/* Creative Gradient Animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.creative-gradient {
+  background: linear-gradient(270deg, #ec4899, #f59e0b, #8b5cf6);
+  background-size: 600% 600%;
+  animation: gradient-shift 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}`,
+      minimalist: `/* Minimalist Fade Animation */
+@keyframes minimal-fade {
+  from {
+    opacity: 0;
+    letter-spacing: 10px;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: normal;
+  }
+}
+
+.minimalist-fade {
+  animation: minimal-fade 1.2s ease-out forwards;
+}`,
+      vintage: `/* Vintage Glow Animation */
+@keyframes vintage-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(218, 165, 32, 0.8), 0 0 30px rgba(210, 105, 30, 0.6);
+  }
+}
+
+.vintage-glow {
+  animation: vintage-glow 2s ease-in-out infinite;
+}`,
+      tech: `/* Tech Scan Animation */
+@keyframes tech-scan {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+.tech-scan {
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(59, 130, 246, 0.3) 50%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  animation: tech-scan 3s linear infinite;
+}`
+    };
+    return animations[theme.id as keyof typeof animations] || '';
+  };
+
+  const renderExampleSite = () => {
+    const textColor = currentColors.text;
+    const bgColor = currentColors.background;
+    const primaryColor = currentColors.primary;
+    const secondaryColor = currentColors.secondary;
+    const accentColor = currentColors.accent;
+
+    switch (theme.id) {
+      case 'gaming':
+        return (
+          <div style={{ background: currentGradient, minHeight: '80vh', padding: '4rem 2rem' }}>
+            <div className="container mx-auto">
+              <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
+                <h2 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '1.5rem', fontWeight: 'bold' }} className="gaming-glitch">
+                  GAME_TITLE
+                </h2>
+                <div style={{ display: 'flex', gap: '1.5rem' }}>
+                  {['ИГРАТЬ', 'МАГАЗИН', 'ЛИГА'].map((item) => (
+                    <a key={item} href="#" style={{ fontFamily: theme.fonts.body.family, color: accentColor, fontWeight: '600', textTransform: 'uppercase', letterSpacing: '2px' }}>
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </nav>
+              
+              <div style={{ textAlign: 'center', marginTop: '6rem' }}>
+                <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '4rem', fontWeight: '900', marginBottom: '1.5rem' }} className="gaming-glitch">
+                  НОВЫЙ УРОВЕНЬ ИГРЫ
+                </h1>
+                <p style={{ fontFamily: theme.fonts.body.family, color: accentColor, fontSize: '1.5rem', marginBottom: '3rem', textTransform: 'uppercase' }}>
+                  Присоединяйся к миллионам игроков
+                </p>
+                <button style={{
+                  backgroundColor: accentColor,
+                  color: '#000',
+                  padding: '1rem 3rem',
+                  fontSize: '1.25rem',
+                  fontFamily: theme.fonts.body.family,
+                  fontWeight: 'bold',
+                  border: 'none',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px',
+                  boxShadow: `0 0 20px ${accentColor}`
+                }}>
+                  НАЧАТЬ СЕЙЧАС
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'corporate':
+        return (
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '2rem' }}>
+            <div className="container mx-auto">
+              <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem 0', borderBottom: `1px solid ${secondaryColor}` }}>
+                <h2 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '1.75rem', fontWeight: 'bold' }}>
+                  Company
+                </h2>
+                <div style={{ display: 'flex', gap: '2rem' }}>
+                  {['Услуги', 'О нас', 'Контакты'].map((item) => (
+                    <a key={item} href="#" style={{ fontFamily: theme.fonts.body.family, color: textColor, fontWeight: '500' }} className="corporate-slide">
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </nav>
+              
+              <div style={{ marginTop: '6rem', maxWidth: '800px' }}>
+                <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '3.5rem', fontWeight: 'bold', lineHeight: '1.2', marginBottom: '2rem' }} className="corporate-slide">
+                  Инновационные решения для вашего бизнеса
+                </h1>
+                <p style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1.25rem', marginBottom: '2.5rem', opacity: 0.8 }} className="corporate-slide">
+                  Мы помогаем компаниям достигать своих целей с помощью передовых технологий и профессионального подхода.
+                </p>
+                <div style={{ display: 'flex', gap: '1rem' }} className="corporate-slide">
+                  <button style={{
+                    backgroundColor: primaryColor,
+                    color: isDark ? textColor : '#fff',
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontFamily: theme.fonts.body.family,
+                    fontWeight: '600',
+                    border: 'none',
+                    borderRadius: '0.5rem',
+                    cursor: 'pointer'
+                  }}>
+                    Узнать больше
+                  </button>
+                  <button style={{
+                    backgroundColor: 'transparent',
+                    color: textColor,
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontFamily: theme.fonts.body.family,
+                    fontWeight: '600',
+                    border: `2px solid ${primaryColor}`,
+                    borderRadius: '0.5rem',
+                    cursor: 'pointer'
+                  }}>
+                    Связаться
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'creative':
+        return (
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.1 }}></div>
+            <div className="container mx-auto" style={{ position: 'relative' }}>
+              <h1 style={{ fontFamily: theme.fonts.heading.family, fontSize: '5rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2rem' }} className="creative-gradient">
+                ТВОРЧЕСТВО БЕЗ ГРАНИЦ
+              </h1>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '4rem' }}>
+                {[primaryColor, secondaryColor, accentColor].map((color, i) => (
+                  <div key={i} style={{
+                    backgroundColor: color,
+                    padding: '3rem 2rem',
+                    borderRadius: '1.5rem',
+                    textAlign: 'center',
+                    transform: 'rotate(-2deg)',
+                    transition: 'transform 0.3s'
+                  }}>
+                    <h3 style={{ fontFamily: theme.fonts.heading.family, color: isDark ? textColor : '#fff', fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+                      Проект {i + 1}
+                    </h3>
+                    <p style={{ fontFamily: theme.fonts.body.family, color: isDark ? textColor : '#fff', opacity: 0.9 }}>
+                      Уникальный креативный проект
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'minimalist':
+        return (
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem' }}>
+            <div className="container mx-auto" style={{ maxWidth: '900px' }}>
+              <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '4rem', fontWeight: 'bold', marginBottom: '4rem', letterSpacing: '-2px' }} className="minimalist-fade">
+                Простота — это сложность
+              </h1>
+              
+              <div style={{ borderLeft: `4px solid ${primaryColor}`, paddingLeft: '2rem', marginBottom: '4rem' }}>
+                <p style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1.5rem', lineHeight: '2', opacity: 0.8 }}>
+                  Минимализм — это не об отсутствии, а о сути. Каждый элемент имеет значение.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', gap: '1px', marginTop: '4rem' }}>
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} style={{
+                    flex: 1,
+                    height: `${100 + i * 50}px`,
+                    backgroundColor: i % 2 === 0 ? primaryColor : accentColor
+                  }}></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'vintage':
+        return (
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
+            <div className="container mx-auto" style={{ maxWidth: '1000px' }}>
+              <div style={{ textAlign: 'center', borderTop: `3px solid ${primaryColor}`, borderBottom: `3px solid ${primaryColor}`, padding: '3rem 0', marginBottom: '4rem' }}>
+                <h1 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '4.5rem', fontWeight: '900', marginBottom: '1rem' }} className="vintage-glow">
+                  VINTAGE GALLERY
+                </h1>
+                <p style={{ fontFamily: theme.fonts.body.family, color: secondaryColor, fontSize: '1.25rem', fontStyle: 'italic' }}>
+                  Классика никогда не выходит из моды
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '3rem' }}>
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} style={{
+                    border: `8px solid ${secondaryColor}`,
+                    padding: '2rem',
+                    backgroundColor: isDark ? '#000' : '#fff',
+                    boxShadow: '10px 10px 0 rgba(0,0,0,0.1)'
+                  }}>
+                    <h3 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+                      Коллекция {i}
+                    </h3>
+                    <p style={{ fontFamily: theme.fonts.body.family, color: textColor, opacity: 0.8 }}>
+                      Изысканные винтажные элементы из прошлого века
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'tech':
+        return (
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.05 }} className="tech-scan"></div>
+            <div className="container mx-auto" style={{ position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '4rem' }}>
+                <div style={{ width: '4px', height: '60px', backgroundColor: primaryColor }}></div>
+                <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '3.5rem', fontWeight: 'bold', letterSpacing: '2px' }}>
+                  TECH_FUTURE
+                </h1>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginTop: '4rem' }}>
+                {['AI', 'CLOUD', 'SECURITY'].map((item) => (
+                  <div key={item} style={{
+                    backgroundColor: secondaryColor,
+                    padding: '3rem 2rem',
+                    border: `1px solid ${accentColor}`,
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '2px', backgroundColor: accentColor }} className="tech-scan"></div>
+                    <h3 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+                      {item}
+                    </h3>
+                    <p style={{ fontFamily: theme.fonts.body.family, color: textColor, opacity: 0.8 }}>
+                      Передовые технологии будущего
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  const cssCode = `/* ${theme.name} Style - CSS */
 :root {
   --primary: ${currentColors.primary};
   --secondary: ${currentColors.secondary};
@@ -64,10 +411,10 @@ const StylePreview = () => {
   --text: ${currentColors.text};
   --font-heading: ${theme.fonts.heading.family};
   --font-body: ${theme.fonts.body.family};
+  --gradient: ${currentGradient};
 }
 
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
   font-family: var(--font-heading);
   color: var(--text);
 }
@@ -78,53 +425,11 @@ body, p {
   background-color: var(--background);
 }
 
-/* Buttons */
-.btn-primary {
-  background-color: var(--primary);
-  color: ${['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff'};
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}
-  `.trim();
-
-  const htmlCode = `
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${theme.name} Style Example</title>
-  
-  <!-- Fonts -->
-  <link rel="stylesheet" href="${theme.fonts.heading.import}">
-  <link rel="stylesheet" href="${theme.fonts.body.import}">
-  
-  <!-- Custom CSS -->
-  <style>
-    ${cssCode}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Добро пожаловать</h1>
-    <p>Пример страницы в стиле ${theme.name}</p>
-    <button class="btn-primary">Кнопка</button>
-  </div>
-</body>
-</html>
-  `.trim();
+${getAnimationCode()}`;
 
   return (
     <div style={{ backgroundColor: currentColors.background, minHeight: "100vh" }}>
-      {/* Navigation */}
-      <nav style={{ borderBottom: `1px solid ${currentColors.secondary}`, padding: "1rem" }}>
+      <nav style={{ borderBottom: `1px solid ${currentColors.secondary}`, padding: "1rem", backgroundColor: currentColors.secondary }}>
         <div className="container mx-auto flex items-center justify-between">
           <Button
             variant="ghost"
@@ -132,163 +437,61 @@ body, p {
             style={{ color: currentColors.text }}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Назад к каталогу
+            К каталогу
           </Button>
-          <div className="flex items-center gap-4">
-            {(theme.darkColors || theme.darkGradient) && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsDark(!isDark)}
-                style={{ color: currentColors.text }}
-              >
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </Button>
-            )}
-            <h2 style={{ 
-              fontFamily: theme.fonts.heading.family, 
-              color: currentColors.text,
-              fontSize: "1.5rem",
-              fontWeight: "bold"
-            }}>
-              {theme.name}
-            </h2>
+          <h2 style={{ 
+            fontFamily: theme.fonts.heading.family, 
+            color: currentColors.text,
+            fontSize: "1.5rem",
+            fontWeight: "bold"
+          }}>
+            {theme.name}
+          </h2>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowCode(!showCode)}
+              style={{ color: currentColors.text }}
+            >
+              <Code className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsDark(!isDark)}
+              style={{ color: currentColors.text }}
+            >
+              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
           </div>
         </div>
       </nav>
 
-      {/* Preview Content */}
-      <div className="container mx-auto px-4 py-12 space-y-12">
-        {/* Hero Section */}
-        <section className="text-center space-y-6 py-16">
-          <h1 
-            style={{ 
-              fontFamily: theme.fonts.heading.family, 
-              color: currentColors.text,
-              fontSize: "3.5rem",
-              fontWeight: "bold",
-              lineHeight: "1.2"
-            }}
-          >
-            Пример Страницы
-          </h1>
-          <p 
-            style={{ 
-              fontFamily: theme.fonts.body.family, 
-              color: currentColors.secondary,
-              fontSize: "1.25rem",
-              maxWidth: "42rem",
-              margin: "0 auto"
-            }}
-          >
-            Это демонстрация стиля {theme.name} с использованием всех цветов и шрифтов
-          </p>
-          <div className="flex gap-4 justify-center">
-            <button
-              style={{
-                backgroundColor: currentColors.primary,
-                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff',
-                padding: "0.75rem 2rem",
-                borderRadius: "0.5rem",
-                fontFamily: theme.fonts.body.family,
-                fontWeight: "600",
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.3s"
-              }}
-            >
-              Главная кнопка
-            </button>
-            <button
-              style={{
-                backgroundColor: currentColors.secondary,
-                color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#ffffff' : currentColors.text,
-                padding: "0.75rem 2rem",
-                borderRadius: "0.5rem",
-                fontFamily: theme.fonts.body.family,
-                fontWeight: "600",
-                border: "none",
-                cursor: "pointer",
-                transition: "all 0.3s"
-              }}
-            >
-              Второстепенная
-            </button>
-          </div>
-        </section>
+      {renderExampleSite()}
 
-        {/* Content Sections */}
-        <section className="grid md:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              style={{
-                backgroundColor: currentColors.secondary,
-                padding: "1.5rem",
-                borderRadius: "0.75rem",
-                border: `2px solid ${currentColors.accent}`
-              }}
-            >
-              <h3 
-                style={{ 
-                  fontFamily: theme.fonts.heading.family, 
-                  color: currentColors.text,
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                  marginBottom: "0.75rem"
-                }}
-              >
-                Заголовок {i}
-              </h3>
-              <p 
-                style={{ 
-                  fontFamily: theme.fonts.body.family, 
-                  color: currentColors.text,
-                  opacity: 0.8
-                }}
-              >
-                Пример текстового контента с использованием основного шрифта. Демонстрация читаемости и стиля.
-              </p>
-            </div>
-          ))}
-        </section>
-
-        {/* Code Examples */}
-        <section className="space-y-6">
-          <h2 
-            style={{ 
-              fontFamily: theme.fonts.heading.family, 
-              color: currentColors.text,
-              fontSize: "2rem",
-              fontWeight: "bold",
-              textAlign: "center"
-            }}
-          >
-            Код для использования
-          </h2>
-
-          {/* CSS Code */}
+      {showCode && (
+        <div className="container mx-auto px-4 py-12">
           <div style={{ 
             backgroundColor: currentColors.secondary, 
-            padding: "1.5rem",
-            borderRadius: "0.75rem",
-            position: "relative"
+            padding: "2rem",
+            borderRadius: "1rem",
+            border: `2px solid ${currentColors.accent}`
           }}>
             <div className="flex items-center justify-between mb-4">
               <h3 style={{ 
                 fontFamily: theme.fonts.heading.family, 
                 color: currentColors.text,
-                fontSize: "1.25rem",
-                fontWeight: "600"
+                fontSize: "1.5rem",
+                fontWeight: "bold"
               }}>
-                CSS
+                CSS Код + Анимации
               </h3>
               <Button
-                size="sm"
                 onClick={() => copyCode(cssCode, "CSS код")}
                 style={{
                   backgroundColor: currentColors.accent,
-                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff'
+                  color: isDark ? '#000' : '#fff'
                 }}
               >
                 <Copy className="h-4 w-4 mr-2" />
@@ -298,7 +501,6 @@ body, p {
             <pre style={{
               fontFamily: "monospace",
               color: currentColors.text,
-              opacity: 0.9,
               fontSize: "0.875rem",
               overflow: "auto",
               whiteSpace: "pre-wrap"
@@ -306,48 +508,8 @@ body, p {
               {cssCode}
             </pre>
           </div>
-
-          {/* HTML Code */}
-          <div style={{ 
-            backgroundColor: currentColors.secondary, 
-            padding: "1.5rem",
-            borderRadius: "0.75rem",
-            position: "relative"
-          }}>
-            <div className="flex items-center justify-between mb-4">
-              <h3 style={{ 
-                fontFamily: theme.fonts.heading.family, 
-                color: currentColors.text,
-                fontSize: "1.25rem",
-                fontWeight: "600"
-              }}>
-                HTML
-              </h3>
-              <Button
-                size="sm"
-                onClick={() => copyCode(htmlCode, "HTML код")}
-                style={{
-                  backgroundColor: currentColors.accent,
-                  color: ['#fafafa', '#f1f5f9', '#e0e7ff', '#ffffff', '#f5f5dc'].includes(currentColors.text) ? '#000000' : '#ffffff'
-                }}
-              >
-                <Copy className="h-4 w-4 mr-2" />
-                Копировать
-              </Button>
-            </div>
-            <pre style={{
-              fontFamily: "monospace",
-              color: currentColors.text,
-              opacity: 0.9,
-              fontSize: "0.875rem",
-              overflow: "auto",
-              whiteSpace: "pre-wrap"
-            }}>
-              {htmlCode}
-            </pre>
-          </div>
-        </section>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
