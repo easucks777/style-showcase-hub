@@ -55,122 +55,131 @@ const StylePreview = () => {
 
   const getAnimationCode = () => {
     const animations = {
-      gaming: `/* Gaming Glitch Animation */
+      gaming: `/* Gaming Animations */
 @keyframes glitch {
-  0%, 100% {
-    transform: translate(0);
-    clip-path: inset(0 0 0 0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-    clip-path: inset(10px 0 30px 0);
-  }
-  40% {
-    transform: translate(2px, -2px);
-    clip-path: inset(30px 0 10px 0);
-  }
+  0%, 100% { transform: translate(0); opacity: 1; }
+  20% { transform: translate(-1px, 1px); opacity: 0.95; }
+  40% { transform: translate(1px, -1px); opacity: 0.95; }
 }
 
-.gaming-glitch {
-  animation: glitch 0.3s infinite;
-  text-shadow: 2px 2px #00ff88, -2px -2px #00d4ff;
-}`,
-      corporate: `/* Corporate Slide Animation */
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
+  50% { box-shadow: 0 0 10px currentColor, 0 0 40px currentColor, 0 0 60px currentColor; }
+}
+
+.gaming-glitch { animation: glitch 2s ease-in-out infinite; }
+.gaming-neon { animation: neon-pulse 2s ease-in-out infinite; }
+.gaming-scanline::before { animation: scanline 3s linear infinite; }`,
+      corporate: `/* Corporate Animations */
 @keyframes slide-up-fade {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.corporate-slide {
-  animation: slide-up-fade 0.8s ease-out forwards;
-}`,
-      creative: `/* Creative Gradient Animation */
+@keyframes card-flip {
+  0% { transform: perspective(1000px) rotateY(0deg); }
+  50% { transform: perspective(1000px) rotateY(180deg); }
+  100% { transform: perspective(1000px) rotateY(360deg); }
+}
+
+@keyframes parallax-float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(-5px) translateX(-5px); }
+  75% { transform: translateY(-15px) translateX(3px); }
+}
+
+.corporate-slide { animation: slide-up-fade 0.8s ease-out forwards; }
+.corporate-flip { animation: card-flip 6s ease-in-out infinite; }
+.corporate-parallax { animation: parallax-float 8s ease-in-out infinite; }`,
+      creative: `/* Creative Animations */
 @keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-.creative-gradient {
-  background: linear-gradient(270deg, #ec4899, #f59e0b, #8b5cf6);
-  background-size: 600% 600%;
-  animation: gradient-shift 8s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}`,
-      minimalist: `/* Minimalist Fade Animation */
+@keyframes blob-morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg) scale(1); }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(90deg) scale(1.1); }
+  50% { border-radius: 50% 50% 30% 70% / 30% 50% 70% 50%; transform: rotate(180deg) scale(0.9); }
+  75% { border-radius: 70% 30% 50% 50% / 60% 40% 60% 40%; transform: rotate(270deg) scale(1.05); }
+}
+
+@keyframes color-wave {
+  0% { filter: hue-rotate(0deg) brightness(1); }
+  50% { filter: hue-rotate(180deg) brightness(0.9); }
+  100% { filter: hue-rotate(360deg) brightness(1); }
+}
+
+.creative-gradient { animation: gradient-shift 8s ease infinite; }
+.creative-blob { animation: blob-morph 10s ease-in-out infinite; }
+.creative-wave { animation: color-wave 6s ease-in-out infinite; }`,
+      minimalist: `/* Minimalist Animations */
 @keyframes minimal-fade {
-  from {
-    opacity: 0;
-    letter-spacing: 10px;
-  }
-  to {
-    opacity: 1;
-    letter-spacing: normal;
-  }
+  from { opacity: 0; letter-spacing: 10px; }
+  to { opacity: 1; letter-spacing: normal; }
 }
 
-.minimalist-fade {
-  animation: minimal-fade 1.2s ease-out forwards;
-}`,
-      vintage: `/* Vintage Glow Animation */
+@keyframes geometric-reveal {
+  0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+@keyframes line-expand {
+  0% { width: 0; opacity: 0; }
+  100% { width: 100%; opacity: 1; }
+}
+
+.minimalist-fade { animation: minimal-fade 1.2s ease-out forwards; }
+.minimalist-reveal { animation: geometric-reveal 1.5s ease-out forwards; }
+.minimalist-line { animation: line-expand 2s ease-out forwards; }`,
+      vintage: `/* Vintage Animations */
 @keyframes vintage-glow {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(218, 165, 32, 0.8), 0 0 30px rgba(210, 105, 30, 0.6);
-  }
+  0%, 100% { text-shadow: 0 0 10px rgba(218, 165, 32, 0.5); }
+  50% { text-shadow: 0 0 20px rgba(218, 165, 32, 0.8), 0 0 30px rgba(210, 105, 30, 0.6); }
 }
 
-.vintage-glow {
-  animation: vintage-glow 2s ease-in-out infinite;
-}`,
-      tech: `/* Tech Scan & Pulse Animations */
-@keyframes tech-scan {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
+@keyframes film-grain {
+  0%, 100% { background-position: 0% 0%; opacity: 0.05; }
+  50% { background-position: 100% 100%; opacity: 0.1; }
 }
 
+@keyframes retro-flicker {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(218, 165, 32, 0.5); }
+  5% { opacity: 0.9; }
+  10% { opacity: 1; text-shadow: 0 0 15px rgba(218, 165, 32, 0.7); }
+}
+
+.vintage-glow { animation: vintage-glow 2s ease-in-out infinite; }
+.vintage-grain::before { animation: film-grain 1s steps(10) infinite; }
+.vintage-flicker { animation: retro-flicker 5s ease-in-out infinite; }`,
+      tech: `/* Tech Animations */
 @keyframes tech-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.2);
-    transform: scale(1.02);
-  }
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); transform: scale(1); }
+  50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); transform: scale(1.02); }
 }
 
-.tech-scan {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(59, 130, 246, 0.4) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: tech-scan 3s linear infinite;
+@keyframes hologram-glitch {
+  0%, 100% { transform: translateZ(0) scale(1); opacity: 1; }
+  20% { transform: translateZ(10px) scale(1.02); opacity: 0.9; }
+  40% { transform: translateZ(-10px) scale(0.98); opacity: 0.95; }
 }
 
-.tech-pulse {
-  animation: tech-pulse 3s ease-in-out infinite;
-}`
+@keyframes data-stream {
+  0% { transform: translateX(-100%); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateX(200%); opacity: 0; }
+}
+
+.tech-pulse { animation: tech-pulse 3s ease-in-out infinite; }
+.tech-hologram { animation: hologram-glitch 3s ease-in-out infinite; }
+.tech-stream::after { animation: data-stream 5s linear infinite; }`
     };
     return animations[theme.id as keyof typeof animations] || '';
   };
@@ -200,14 +209,14 @@ const StylePreview = () => {
                 </div>
               </nav>
               
-              <div style={{ textAlign: 'center', marginTop: '6rem' }}>
+              <div style={{ textAlign: 'center', marginTop: '6rem' }} className="gaming-matrix gaming-scanline">
                 <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '4rem', fontWeight: '900', marginBottom: '1.5rem' }} className="gaming-glitch">
                   НОВЫЙ УРОВЕНЬ ИГРЫ
                 </h1>
-                <p style={{ fontFamily: theme.fonts.body.family, color: accentColor, fontSize: '1.5rem', marginBottom: '3rem', textTransform: 'uppercase' }}>
+                <p style={{ fontFamily: theme.fonts.body.family, color: accentColor, fontSize: '1.5rem', marginBottom: '3rem', textTransform: 'uppercase' }} className="gaming-neon">
                   Присоединяйся к миллионам игроков
                 </p>
-                <button className="gaming-button-hover" style={{
+                <button className="gaming-button-hover gaming-neon" style={{
                   backgroundColor: accentColor,
                   color: '#000',
                   padding: '1rem 3rem',
@@ -222,6 +231,25 @@ const StylePreview = () => {
                 }}>
                   НАЧАТЬ СЕЙЧАС
                 </button>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginTop: '5rem', maxWidth: '900px', margin: '5rem auto 0' }}>
+                  {['СКОРОСТЬ', 'МОЩЬ', 'ПОБЕДА'].map((text, i) => (
+                    <div key={i} className="gaming-neon" style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      border: `2px solid ${accentColor}`,
+                      padding: '2rem 1rem',
+                      textAlign: 'center',
+                      cursor: 'pointer'
+                    }}>
+                      <div style={{ fontFamily: theme.fonts.heading.family, color: accentColor, fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                        {i + 1}
+                      </div>
+                      <div style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1rem', textTransform: 'uppercase' }}>
+                        {text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -279,6 +307,25 @@ const StylePreview = () => {
                     Связаться
                   </button>
                 </div>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginTop: '5rem' }}>
+                  {['Стратегия', 'Развитие', 'Результат'].map((text, i) => (
+                    <div key={i} className="corporate-parallax corporate-flip" style={{
+                      backgroundColor: secondaryColor,
+                      padding: '3rem 2rem',
+                      borderRadius: '1rem',
+                      textAlign: 'center',
+                      border: `1px solid ${primaryColor}20`
+                    }}>
+                      <div style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+                        0{i + 1}
+                      </div>
+                      <div style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1.1rem' }}>
+                        {text}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -287,15 +334,15 @@ const StylePreview = () => {
       case 'creative':
         return (
           <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.1 }}></div>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.1 }} className="creative-wave"></div>
             <div className="container mx-auto" style={{ position: 'relative' }}>
-              <h1 style={{ fontFamily: theme.fonts.heading.family, fontSize: '5rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2rem' }} className="creative-gradient">
+              <h1 style={{ fontFamily: theme.fonts.heading.family, fontSize: '5rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2rem' }} className="creative-gradient creative-bounce">
                 ТВОРЧЕСТВО БЕЗ ГРАНИЦ
               </h1>
               
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '4rem' }}>
                 {[primaryColor, secondaryColor, accentColor].map((color, i) => (
-                  <div key={i} className="creative-button-hover" style={{
+                  <div key={i} className="creative-button-hover creative-blob" style={{
                     backgroundColor: color,
                     padding: '3rem 2rem',
                     borderRadius: '1.5rem',
@@ -312,6 +359,12 @@ const StylePreview = () => {
                   </div>
                 ))}
               </div>
+              
+              <div style={{ marginTop: '5rem', textAlign: 'center' }}>
+                <p style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1.5rem', marginBottom: '2rem' }} className="creative-wave">
+                  Создавайте. Вдохновляйтесь. Развивайтесь.
+                </p>
+              </div>
             </div>
           </div>
         );
@@ -324,15 +377,15 @@ const StylePreview = () => {
                 Простота — это сложность
               </h1>
               
-              <div style={{ borderLeft: `4px solid ${primaryColor}`, paddingLeft: '2rem', marginBottom: '4rem' }}>
-                <p style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1.5rem', lineHeight: '2', opacity: 0.8 }}>
+              <div style={{ borderLeft: `4px solid ${primaryColor}`, paddingLeft: '2rem', marginBottom: '4rem' }} className="minimalist-line">
+                <p style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1.5rem', lineHeight: '2', opacity: 0.8 }} className="minimalist-reveal">
                   Минимализм — это не об отсутствии, а о сути. Каждый элемент имеет значение.
                 </p>
               </div>
 
               <div style={{ display: 'flex', gap: '1px', marginTop: '4rem' }}>
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="minimalist-button-hover" style={{
+                  <div key={i} className="minimalist-button-hover minimalist-shift" style={{
                     flex: 1,
                     height: `${100 + i * 50}px`,
                     backgroundColor: i % 2 === 0 ? primaryColor : accentColor,
@@ -340,33 +393,40 @@ const StylePreview = () => {
                   }}></div>
                 ))}
               </div>
+              
+              <div style={{ marginTop: '5rem', textAlign: 'center' }}>
+                <div style={{ height: '2px', backgroundColor: primaryColor, marginBottom: '3rem' }} className="minimalist-line"></div>
+                <p style={{ fontFamily: theme.fonts.body.family, color: textColor, fontSize: '1.25rem', opacity: 0.7 }} className="minimalist-fade">
+                  Меньше значит больше
+                </p>
+              </div>
             </div>
           </div>
         );
 
-      case 'vintage':
+        case 'vintage':
         return (
-          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px)', backgroundSize: '20px 20px' }} className="vintage-grain">
             <div className="container mx-auto" style={{ maxWidth: '1000px' }}>
               <div style={{ textAlign: 'center', borderTop: `3px solid ${primaryColor}`, borderBottom: `3px solid ${primaryColor}`, padding: '3rem 0', marginBottom: '4rem' }}>
-                <h1 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '4.5rem', fontWeight: '900', marginBottom: '1rem' }} className="vintage-glow">
+                <h1 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '4.5rem', fontWeight: '900', marginBottom: '1rem' }} className="vintage-glow vintage-flicker">
                   VINTAGE GALLERY
                 </h1>
-                <p style={{ fontFamily: theme.fonts.body.family, color: secondaryColor, fontSize: '1.25rem', fontStyle: 'italic' }}>
+                <p style={{ fontFamily: theme.fonts.body.family, color: secondaryColor, fontSize: '1.25rem', fontStyle: 'italic' }} className="vintage-sepia">
                   Классика никогда не выходит из моды
                 </p>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '3rem' }}>
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="vintage-button-hover" style={{
+                  <div key={i} className="vintage-button-hover vintage-sepia" style={{
                     border: `8px solid ${secondaryColor}`,
                     padding: '2rem',
                     backgroundColor: isDark ? '#000' : '#fff',
                     boxShadow: '10px 10px 0 rgba(0,0,0,0.1)',
                     cursor: 'pointer'
                   }}>
-                    <h3 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+                    <h3 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '1rem' }} className="vintage-flicker">
                       Коллекция {i}
                     </h3>
                     <p style={{ fontFamily: theme.fonts.body.family, color: textColor, opacity: 0.8 }}>
@@ -375,26 +435,32 @@ const StylePreview = () => {
                   </div>
                 ))}
               </div>
+              
+              <div style={{ marginTop: '5rem', textAlign: 'center', borderTop: `2px solid ${secondaryColor}`, paddingTop: '3rem' }}>
+                <p style={{ fontFamily: theme.fonts.body.family, color: primaryColor, fontSize: '1.5rem', fontWeight: 'bold' }} className="vintage-glow">
+                  Элегантность сквозь время
+                </p>
+              </div>
             </div>
           </div>
         );
 
       case 'tech':
         return (
-          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative' }}>
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative' }} className="tech-circuit">
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.05 }} className="tech-scan"></div>
             <div className="tech-pulse" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none' }}></div>
             <div className="container mx-auto" style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '4rem' }}>
                 <div style={{ width: '4px', height: '60px', backgroundColor: primaryColor }}></div>
-                <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '3.5rem', fontWeight: 'bold', letterSpacing: '2px' }}>
+                <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '3.5rem', fontWeight: 'bold', letterSpacing: '2px' }} className="tech-hologram">
                   TECH_FUTURE
                 </h1>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginTop: '4rem' }}>
                 {['AI', 'CLOUD', 'SECURITY'].map((item) => (
-                  <div key={item} className="tech-button-hover" style={{
+                  <div key={item} className="tech-button-hover tech-stream" style={{
                     backgroundColor: secondaryColor,
                     padding: '3rem 2rem',
                     border: `1px solid ${accentColor}`,
@@ -403,7 +469,7 @@ const StylePreview = () => {
                     cursor: 'pointer'
                   }}>
                     <div style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '2px', backgroundColor: accentColor }} className="tech-scan"></div>
-                    <h3 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+                    <h3 style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }} className="tech-hologram">
                       {item}
                     </h3>
                     <p style={{ fontFamily: theme.fonts.body.family, color: textColor, opacity: 0.8 }}>
@@ -411,6 +477,14 @@ const StylePreview = () => {
                     </p>
                   </div>
                 ))}
+              </div>
+              
+              <div style={{ marginTop: '5rem', textAlign: 'center' }}>
+                <div style={{ display: 'inline-block', padding: '1rem 3rem', border: `2px solid ${primaryColor}`, position: 'relative', overflow: 'hidden' }} className="tech-stream">
+                  <p style={{ fontFamily: theme.fonts.heading.family, color: primaryColor, fontSize: '1.5rem', fontWeight: 'bold', letterSpacing: '3px' }}>
+                    CONNECTING THE FUTURE
+                  </p>
+                </div>
               </div>
             </div>
           </div>

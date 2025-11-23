@@ -86,6 +86,91 @@ All colors MUST be HSL.
   text-shadow: 1px 1px rgba(0, 255, 136, 0.4), -1px -1px rgba(0, 212, 255, 0.4);
 }
 
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.gaming-matrix {
+  position: relative;
+  overflow: hidden;
+}
+
+.gaming-matrix::before {
+  content: '01010101010101010101';
+  position: absolute;
+  top: -100%;
+  left: 10%;
+  color: rgba(0, 255, 136, 0.3);
+  font-family: monospace;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  animation: matrix-rain 4s linear infinite;
+}
+
+.gaming-matrix::after {
+  content: '10101010101010101010';
+  position: absolute;
+  top: -100%;
+  right: 15%;
+  color: rgba(0, 212, 255, 0.3);
+  font-family: monospace;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  animation: matrix-rain 3.5s linear infinite 0.5s;
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+  }
+}
+
+.gaming-neon {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.gaming-scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.gaming-scanline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.8), transparent);
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+}
+
 /* Corporate Animations */
 @keyframes slide-up-fade {
   from {
@@ -100,6 +185,42 @@ All colors MUST be HSL.
 
 .corporate-slide {
   animation: slide-up-fade 0.8s ease-out forwards;
+}
+
+@keyframes card-flip {
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(180deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(360deg);
+  }
+}
+
+.corporate-flip {
+  animation: card-flip 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes parallax-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+  50% {
+    transform: translateY(-5px) translateX(-5px);
+  }
+  75% {
+    transform: translateY(-15px) translateX(3px);
+  }
+}
+
+.corporate-parallax {
+  animation: parallax-float 8s ease-in-out infinite;
 }
 
 /* Creative Animations */
@@ -121,6 +242,70 @@ All colors MUST be HSL.
   background-clip: text;
 }
 
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% {
+    border-radius: 50% 50% 30% 70% / 30% 50% 70% 50%;
+    transform: rotate(180deg) scale(0.9);
+  }
+  75% {
+    border-radius: 70% 30% 50% 50% / 60% 40% 60% 40%;
+    transform: rotate(270deg) scale(1.05);
+  }
+}
+
+.creative-blob {
+  animation: blob-morph 10s ease-in-out infinite;
+}
+
+@keyframes color-wave {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  25% {
+    filter: hue-rotate(90deg) brightness(1.2);
+  }
+  50% {
+    filter: hue-rotate(180deg) brightness(0.9);
+  }
+  75% {
+    filter: hue-rotate(270deg) brightness(1.1);
+  }
+  100% {
+    filter: hue-rotate(360deg) brightness(1);
+  }
+}
+
+.creative-wave {
+  animation: color-wave 6s ease-in-out infinite;
+}
+
+@keyframes bounce-rotate {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+}
+
+.creative-bounce {
+  animation: bounce-rotate 3s ease-in-out infinite;
+}
+
 /* Minimalist Animations */
 @keyframes minimal-fade {
   from {
@@ -137,6 +322,50 @@ All colors MUST be HSL.
   animation: minimal-fade 1.2s ease-out forwards;
 }
 
+@keyframes geometric-reveal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+.minimalist-reveal {
+  animation: geometric-reveal 1.5s ease-out forwards;
+}
+
+@keyframes line-expand {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.minimalist-line {
+  animation: line-expand 2s ease-out forwards;
+}
+
+@keyframes subtle-shift {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+.minimalist-shift {
+  animation: subtle-shift 4s ease-in-out infinite;
+}
+
 /* Vintage Animations */
 @keyframes vintage-glow {
   0%, 100% {
@@ -149,6 +378,72 @@ All colors MUST be HSL.
 
 .vintage-glow {
   animation: vintage-glow 2s ease-in-out infinite;
+}
+
+@keyframes film-grain {
+  0%, 100% {
+    background-position: 0% 0%;
+    opacity: 0.05;
+  }
+  50% {
+    background-position: 100% 100%;
+    opacity: 0.1;
+  }
+}
+
+.vintage-grain {
+  position: relative;
+}
+
+.vintage-grain::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);
+  animation: film-grain 1s steps(10) infinite;
+  pointer-events: none;
+}
+
+@keyframes sepia-flash {
+  0%, 100% {
+    filter: sepia(0);
+  }
+  50% {
+    filter: sepia(0.8);
+  }
+}
+
+.vintage-sepia {
+  animation: sepia-flash 4s ease-in-out infinite;
+}
+
+@keyframes retro-flicker {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+  }
+  5% {
+    opacity: 0.9;
+  }
+  10% {
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(218, 165, 32, 0.7);
+  }
+  15% {
+    opacity: 0.95;
+  }
+  20% {
+    opacity: 1;
+  }
+}
+
+.vintage-flicker {
+  animation: retro-flicker 5s ease-in-out infinite;
 }
 
 /* Tech Animations */
@@ -185,6 +480,101 @@ All colors MUST be HSL.
 
 .tech-pulse {
   animation: tech-pulse 3s ease-in-out infinite;
+}
+
+@keyframes circuit-flow {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tech-circuit {
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-circuit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(90deg, transparent 49%, rgba(59, 130, 246, 0.1) 49%, rgba(59, 130, 246, 0.1) 51%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, rgba(59, 130, 246, 0.1) 49%, rgba(59, 130, 246, 0.1) 51%, transparent 51%);
+  background-size: 50px 50px;
+  animation: circuit-flow 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes hologram-glitch {
+  0%, 100% {
+    transform: translateZ(0) scale(1);
+    opacity: 1;
+  }
+  20% {
+    transform: translateZ(10px) scale(1.02);
+    opacity: 0.9;
+  }
+  40% {
+    transform: translateZ(-10px) scale(0.98);
+    opacity: 0.95;
+  }
+  60% {
+    transform: translateZ(5px) scale(1.01);
+    opacity: 0.92;
+  }
+  80% {
+    transform: translateZ(-5px) scale(0.99);
+    opacity: 0.97;
+  }
+}
+
+.tech-hologram {
+  animation: hologram-glitch 3s ease-in-out infinite;
+  text-shadow: 
+    0 0 5px rgba(59, 130, 246, 0.5),
+    0 0 10px rgba(59, 130, 246, 0.3),
+    0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+@keyframes data-stream {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+}
+
+.tech-stream {
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-stream::after {
+  content: '< DATA STREAM >';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  color: rgba(59, 130, 246, 0.3);
+  font-family: monospace;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  animation: data-stream 5s linear infinite;
+  pointer-events: none;
 }
 
 /* Button Hover Effects */
