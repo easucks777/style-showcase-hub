@@ -209,14 +209,14 @@ const StylePreview = () => {
                 </div>
               </nav>
               
-              <div style={{ textAlign: 'center', marginTop: '6rem' }} className="gaming-matrix gaming-scanline">
+              <div style={{ textAlign: 'center', marginTop: '6rem' }} className="gaming-matrix gaming-scanline gaming-extra-matrix-1 gaming-extra-matrix-2 gaming-extra-matrix-3">
                 <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '4rem', fontWeight: '900', marginBottom: '1.5rem' }} className="gaming-glitch">
                   НОВЫЙ УРОВЕНЬ ИГРЫ
                 </h1>
-                <p style={{ fontFamily: theme.fonts.body.family, color: accentColor, fontSize: '1.5rem', marginBottom: '3rem', textTransform: 'uppercase' }} className="gaming-neon">
+                <p style={{ fontFamily: theme.fonts.body.family, color: accentColor, fontSize: '1.5rem', marginBottom: '3rem', textTransform: 'uppercase' }}>
                   Присоединяйся к миллионам игроков
                 </p>
-                <button className="gaming-button-hover gaming-neon" style={{
+                <button className="gaming-button-hover" style={{
                   backgroundColor: accentColor,
                   color: '#000',
                   padding: '1rem 3rem',
@@ -234,7 +234,7 @@ const StylePreview = () => {
                 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', marginTop: '5rem', maxWidth: '900px', margin: '5rem auto 0' }}>
                   {['СКОРОСТЬ', 'МОЩЬ', 'ПОБЕДА'].map((text, i) => (
-                    <div key={i} className="gaming-neon" style={{
+                    <div key={i} style={{
                       backgroundColor: 'rgba(0, 0, 0, 0.5)',
                       border: `2px solid ${accentColor}`,
                       padding: '2rem 1rem',
@@ -447,7 +447,7 @@ const StylePreview = () => {
 
       case 'tech':
         return (
-          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative' }} className="tech-circuit">
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative' }} className="tech-circuit tech-stream-1 tech-stream-2 tech-stream-3">
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.05 }} className="tech-scan"></div>
             <div className="tech-pulse" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none' }}></div>
             <div className="container mx-auto" style={{ position: 'relative' }}>
