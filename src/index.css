@@ -110,69 +110,16 @@ All colors MUST be HSL.
   overflow: hidden;
 }
 
-.gaming-matrix::before {
-  content: '01010101\A11001100\A10101010\A00110011\A11110000\A01010101\A10011001';
-  white-space: pre;
+.gaming-matrix-stream {
   position: absolute;
   top: -100%;
-  left: 10%;
   color: rgba(0, 255, 136, 0.4);
   font-family: monospace;
   font-size: 1.2rem;
   line-height: 1.4;
+  white-space: pre;
   animation: matrix-rain 4s linear infinite;
-}
-
-.gaming-matrix::after {
-  content: '10101010\A00110011\A11001100\A01010101\A00001111\A10101010\A01100110';
-  white-space: pre;
-  position: absolute;
-  top: -100%;
-  right: 15%;
-  color: rgba(0, 212, 255, 0.4);
-  font-family: monospace;
-  font-size: 1.2rem;
-  line-height: 1.4;
-  animation: matrix-rain 3.5s linear infinite 0.5s;
-}
-
-.gaming-extra-matrix-1::before {
-  content: '11110000\A01010101\A10011001\A00110011\A11001100\A10101010';
-  white-space: pre;
-  position: absolute;
-  top: -100%;
-  left: 30%;
-  color: rgba(0, 255, 136, 0.25);
-  font-family: monospace;
-  font-size: 1rem;
-  line-height: 1.3;
-  animation: matrix-rain 5s linear infinite 1s;
-}
-
-.gaming-extra-matrix-2::before {
-  content: '00001111\A10101010\A01100110\A11001100\A00110011\A11110000';
-  white-space: pre;
-  position: absolute;
-  top: -100%;
-  right: 30%;
-  color: rgba(0, 212, 255, 0.25);
-  font-family: monospace;
-  font-size: 1rem;
-  line-height: 1.3;
-  animation: matrix-rain 4.5s linear infinite 1.5s;
-}
-
-.gaming-extra-matrix-3::before {
-  content: '01100110\A11110000\A00001111\A10011001\A01010101\A11001100';
-  white-space: pre;
-  position: absolute;
-  top: -100%;
-  left: 50%;
-  color: rgba(0, 255, 136, 0.2);
-  font-family: monospace;
-  font-size: 0.9rem;
-  line-height: 1.2;
-  animation: matrix-rain 5.5s linear infinite 2s;
+  pointer-events: none;
 }
 
 @keyframes neon-pulse {
@@ -607,55 +554,14 @@ All colors MUST be HSL.
   overflow: hidden;
 }
 
-.tech-stream::after {
-  content: '< DATA STREAM >';
+.tech-data-stream {
   position: absolute;
-  top: 50%;
   left: 0;
   color: rgba(59, 130, 246, 0.4);
   font-family: monospace;
   font-size: 0.75rem;
   white-space: nowrap;
   animation: data-stream 5s linear infinite;
-  pointer-events: none;
-}
-
-.tech-stream-1::before {
-  content: '>> SYSTEM_ONLINE <<';
-  position: absolute;
-  top: 20%;
-  left: 0;
-  color: rgba(59, 130, 246, 0.3);
-  font-family: monospace;
-  font-size: 0.7rem;
-  white-space: nowrap;
-  animation: data-stream 6s linear infinite 1s;
-  pointer-events: none;
-}
-
-.tech-stream-2::before {
-  content: '[ PROCESSING... ]';
-  position: absolute;
-  top: 70%;
-  left: 0;
-  color: rgba(59, 130, 246, 0.35);
-  font-family: monospace;
-  font-size: 0.7rem;
-  white-space: nowrap;
-  animation: data-stream 5.5s linear infinite 2s;
-  pointer-events: none;
-}
-
-.tech-stream-3::before {
-  content: '// PROTOCOL_ACTIVE //';
-  position: absolute;
-  top: 30%;
-  left: 0;
-  color: rgba(59, 130, 246, 0.25);
-  font-family: monospace;
-  font-size: 0.65rem;
-  white-space: nowrap;
-  animation: data-stream 6.5s linear infinite 0.5s;
   pointer-events: none;
 }
 
