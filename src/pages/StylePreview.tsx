@@ -194,8 +194,23 @@ const StylePreview = () => {
     switch (theme.id) {
       case 'gaming':
         return (
-          <div style={{ background: currentGradient, minHeight: '80vh', padding: '4rem 2rem' }}>
-            <div className="container mx-auto">
+          <div style={{ background: currentGradient, minHeight: '80vh', padding: '4rem 2rem', position: 'relative', overflow: 'hidden' }}>
+            {/* Random matrix rain numbers */}
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="gaming-matrix-stream"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 2}s`,
+                  animationDuration: `${4 + Math.random() * 2}s`,
+                  opacity: 0.3 + Math.random() * 0.3
+                }}
+              >
+                {['01010101', '11001100', '10101010', '00110011', '11110000', '01010101', '10011001'].join('\n')}
+              </div>
+            ))}
+            <div className="container mx-auto" style={{ position: 'relative' }}>
               <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
                 <h2 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '1.5rem', fontWeight: 'bold' }} className="gaming-glitch">
                   GAME_TITLE
@@ -209,7 +224,7 @@ const StylePreview = () => {
                 </div>
               </nav>
               
-              <div style={{ textAlign: 'center', marginTop: '6rem' }} className="gaming-matrix gaming-scanline gaming-extra-matrix-1 gaming-extra-matrix-2 gaming-extra-matrix-3">
+              <div style={{ textAlign: 'center', marginTop: '6rem' }} className="gaming-scanline">
                 <h1 style={{ fontFamily: theme.fonts.heading.family, color: textColor, fontSize: '4rem', fontWeight: '900', marginBottom: '1.5rem' }} className="gaming-glitch">
                   НОВЫЙ УРОВЕНЬ ИГРЫ
                 </h1>
@@ -446,8 +461,34 @@ const StylePreview = () => {
         );
 
       case 'tech':
+        const techStreams = [
+          '>> SYSTEM_ONLINE <<',
+          '[ PROCESSING... ]',
+          '// PROTOCOL_ACTIVE //',
+          '< DATA STREAM >',
+          '{ QUANTUM_SYNC }',
+          '>>> NEURAL_NET <<<',
+          '| BLOCKCHAIN_TX |',
+          '=== AI_CORE ==='
+        ];
         return (
-          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative' }} className="tech-circuit tech-stream-1 tech-stream-2 tech-stream-3">
+          <div style={{ backgroundColor: bgColor, minHeight: '80vh', padding: '4rem 2rem', position: 'relative', overflow: 'hidden' }} className="tech-circuit">
+            {/* Random data streams */}
+            {techStreams.map((text, i) => (
+              <div
+                key={i}
+                className="tech-data-stream"
+                style={{
+                  top: `${10 + Math.random() * 80}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  animationDuration: `${5 + Math.random() * 2}s`,
+                  fontSize: `${0.65 + Math.random() * 0.15}rem`,
+                  opacity: 0.25 + Math.random() * 0.2
+                }}
+              >
+                {text}
+              </div>
+            ))}
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: currentGradient, opacity: 0.05 }} className="tech-scan"></div>
             <div className="tech-pulse" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, pointerEvents: 'none' }}></div>
             <div className="container mx-auto" style={{ position: 'relative' }}>
